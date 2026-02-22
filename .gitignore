@@ -1,0 +1,18 @@
+# Environnement virtuel
+.venv/
+env/
+venv/
+
+
+# Données (Trop volumineuses pour Git)
+data/*.csv
+data/*.zip
+
+# Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+
+# MLflow (les modèles enregistrés sont lourds, on peut les ignorer ou pas selon ton choix)
+ mlruns/
