@@ -15,4 +15,7 @@ data/*.zip
 __pycache__/
 
 # MLflow (les modèles enregistrés sont lourds, on peut les ignorer ou pas selon ton choix)
- mlruns/
+ mlruns/mlruns/
+mlruns/
+mlruns/
+*.pkl

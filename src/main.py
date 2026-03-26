@@ -26,27 +26,27 @@ def run_data_pipeline():
         mlflow.log_param("raw_train_shape", app_train.shape)
         mlflow.log_param("raw_test_shape", app_test.shape)
 
-        # --- ÉTAPE A : Traitement des anomalies ---
+        # --- ETAPE A : Traitement des anomalies ---
         # On utilise la logique du notebook : correction de DAYS_EMPLOYED
         print("Nettoyage des anomalies...")
         app_train = handle_anomalies(app_train)
         app_test = handle_anomalies(app_test)
         mlflow.log_param("days_employed_anomaly_fixed", True)
 
-        # --- ÉTAPE B : Feature Engineering métier ---
+        # --- ETAPE B : Feature Engineering métier ---
         # Création des ratios CREDIT_INCOME, ANNUITY_INCOME, etc.
         print("Création des variables métier...")
         app_train = feature_engineering_domain(app_train)
         app_test = feature_engineering_domain(app_test)
         mlflow.log_param("domain_features_created", ["CREDIT_INCOME", "ANNUITY_INCOME", "TERM", "EMPLOYED_PERCENT"])
 
-        # --- ÉTAPE C : Encodage et Alignement ---
+        # --- ETAPE C : Encodage et Alignement ---
         # LabelEncoding (2 classes) et One-Hot (>2 classes)
         print("Encodage des variables catégorielles...")
         app_train, app_test = encode_categorical(app_train, app_test)
         mlflow.log_param("final_feature_count", app_train.shape[1])
 
-        # --- ÉTAPE D : Sauvegarde ---
+        # --- ETAPE D : Sauvegarde ---
         print("Sauvegarde des datasets préparés...")
         os.makedirs('data/processed', exist_ok=True)
         app_train.to_csv('data/processed/train_cleaned.csv', index=False)
@@ -55,7 +55,7 @@ def run_data_pipeline():
         # On log le fichier final comme un artefact pour le retrouver facilement
         mlflow.log_artifact('data/processed/train_cleaned.csv')
         
-        print(f"✅ Étape 1 terminée. Dataset prêt : {app_train.shape}")
+        print(f"Etape 1 terminée. Dataset prêt : {app_train.shape}")
 
 if __name__ == "__main__":
     run_data_pipeline()
